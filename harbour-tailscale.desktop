@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Categories=Network;
+Icon=harbour-tailscale
+Exec=harbour-tailscale
+Name=Tailscale
+Comment=Tailscale makes networking easy
+
+[X-Sailjail]
+Permissions=Internet
+OrganizationName=dev.scarpino
+ApplicationName=harbour-tailscale

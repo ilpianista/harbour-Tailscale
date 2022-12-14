@@ -1,0 +1,92 @@
+name: SailfishOS build
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - '*'
+  pull_request:
+    branches:
+      - master
+
+env:
+  RELEASE: 4.4.0.68
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Prepare
+      run: mkdir RPMS
+
+    - name: Build armv7hl
+      id: build_armv7hl
+      run: docker run --rm --privileged -v $PWD:/workspace coderus/sailfishos-platform-sdk:$RELEASE /bin/bash -c "
+            mkdir -p build ;
+            cd build ;
+            cp -r /workspace/* . ;
+            cd rpm ;
+            curl -O https://pkgs.tailscale.com/stable/tailscale_1.34.1_arm.tgz ;
+            tar xfz tailscale_1.34.1_arm.tgz ;
+            mv tailscale_1.34.1_arm/tailscale . ;
+            mv tailscale_1.34.1_arm/tailscaled . ;
+            cd .. ;
+            mb2 -t SailfishOS-$RELEASE-armv7hl build ;
+            sudo mkdir -p /workspace/RPMS ;
+            sudo cp -r RPMS/*.rpm /workspace/RPMS"
+
+    - name: Build i486
+      id: build_i486
+      run: docker run --rm --privileged -v $PWD:/workspace coderus/sailfishos-platform-sdk:$RELEASE /bin/bash -c "
+            mkdir -p build ;
+            cd build ;
+            cp -r /workspace/* . ;
+            cd rpm ;
+            curl -O https://pkgs.tailscale.com/stable/tailscale_1.34.1_386.tgz ;
+            tar xfz tailscale_1.34.1_386.tgz ;
+            mv tailscale_1.34.1_386/tailscale . ;
+            mv tailscale_1.34.1_386/tailscaled . ;
+            cd .. ;
+            mb2 -t SailfishOS-$RELEASE-i486 build ;
+            sudo mkdir -p /workspace/RPMS ;
+            sudo cp -r RPMS/*.rpm /workspace/RPMS"
+
+    - name: Build aarch64
+      id: build_aarch64
+      run: docker run --rm --privileged -v $PWD:/workspace coderus/sailfishos-platform-sdk:$RELEASE /bin/bash -c "
+            mkdir -p build ;
+            cd build ;
+            cp -r /workspace/* . ;
+            cd rpm ;
+            curl -O https://pkgs.tailscale.com/stable/tailscale_1.34.1_arm64.tgz ;
+            tar xfz tailscale_1.34.1_arm64.tgz ;
+            mv tailscale_1.34.1_arm64/tailscale . ;
+            mv tailscale_1.34.1_arm64/tailscaled . ;
+            cd .. ;
+            mb2 -t SailfishOS-$RELEASE-aarch64 build ;
+            sudo mkdir -p /workspace/RPMS ;
+            sudo cp -r RPMS/*.rpm /workspace/RPMS"
+
+    - name: Upload build result
+      uses: actions/upload-artifact@v2
+      with:
+        name: rpms
+        path: RPMS
+
+    - name: Create release
+      if: contains(github.ref, 'release')
+      run: |
+        set -x
+        assets=()
+        for asset in RPMS/*.rpm; do
+          assets+=("-a" "$asset")
+        done
+        tag_name="${GITHUB_REF##*/}"
+        hub release create "${assets[@]}" -m "$tag_name" "$tag_name"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
