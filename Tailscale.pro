@@ -8,7 +8,7 @@ SOURCES += \
 
 OTHER_FILES += \
     qml/cover/CoverPage.qml \
-    qml/pages/FolderDelegate.qml \
+    qml/pages/About.qml \
     qml/pages/MainPage.qml \
     qml/tailscale.qml \
     harbour-tailscale.desktop \

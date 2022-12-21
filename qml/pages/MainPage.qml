@@ -51,6 +51,12 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                text: qsTr("About")
+
+                onClicked: pageStack.push(Qt.resolvedUrl("About.qml"))
+            }
+
+            MenuItem {
                 id: down
                 text: qsTr("Down")
                 enabled: client.isUp()

@@ -95,3 +95,12 @@ bool Client::isUp() const
 
     return cmd.exitCode() == 0;
 }
+
+QString Client::getVersion() const
+{
+    QProcess cmd;
+    cmd.start(QStringLiteral("/usr/bin/tailscale"), QStringList("version"));
+    cmd.waitForFinished();
+
+    return cmd.readAllStandardOutput();
+}

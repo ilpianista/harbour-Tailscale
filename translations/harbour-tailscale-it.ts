@@ -2,6 +2,21 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="it">
 <context>
+    <name>About</name>
+    <message>
+        <source>Down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tailscale status</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CoverPage</name>
     <message>
         <source>Up</source>

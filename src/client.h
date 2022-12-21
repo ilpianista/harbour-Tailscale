@@ -15,6 +15,7 @@ public:
     Q_INVOKABLE void down();
     Q_INVOKABLE QString getStatus() const;
     Q_INVOKABLE bool isUp() const;
+    Q_INVOKABLE QString getVersion() const;
     Q_INVOKABLE void up();
 
 Q_SIGNALS:
