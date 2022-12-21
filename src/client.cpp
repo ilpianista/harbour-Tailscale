@@ -24,12 +24,9 @@
 
 #include "client.h"
 
-#include <QDebug>
 #include <QProcess>
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
-#include <QTextStream>
-#include <QUrl>
 
 Client::Client(QObject *parent) :
     QObject(parent)
@@ -39,6 +36,7 @@ Client::Client(QObject *parent) :
 
 Client::~Client()
 {
+    delete m_cmd;
 }
 
 QString Client::getStatus() const
@@ -65,7 +63,7 @@ void Client::up()
 void Client::onUpFinished(int exitCode)
 {
     if (exitCode == 0) {
-        Q_EMIT loginCompleted();
+        Q_EMIT statusUpdate(true);
     }
     m_cmd->deleteLater();
 }
@@ -85,6 +83,8 @@ void Client::down()
     QProcess cmd;
     cmd.start(QStringLiteral("/usr/bin/tailscale"), QStringList("down"));
     cmd.waitForFinished();
+
+    Q_EMIT statusUpdate(false);
 }
 
 bool Client::isUp() const

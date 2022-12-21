@@ -21,7 +21,17 @@ import Sailfish.Silica 1.0
 
 CoverBackground {
 
+    Connections {
+        target: client
+
+        onStatusUpdate: {
+            placeholder.text = isUp ? qsTr("Up") : qsTr("Down");
+        }
+    }
+
     CoverPlaceholder {
+        id: placeholder
+        text: client.isUp() ? qsTr("Up") : qsTr("Down");
         icon.source: "/usr/share/icons/hicolor/86x86/apps/harbour-tailscale.png"
     }
 }

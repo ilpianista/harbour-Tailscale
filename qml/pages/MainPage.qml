@@ -38,8 +38,10 @@ Page {
 
         onLoginRequest: Qt.openUrlExternally(url);
 
-        onLoginCompleted: {
+        onStatusUpdate: {
             status.text = client.getStatus();
+            up.enabled = !isUp;
+            down.enabled = isUp;
         }
     }
 
@@ -49,16 +51,20 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                id: down
                 text: qsTr("Down")
                 enabled: client.isUp()
 
                 onClicked: {
                     client.down();
                     status.text = client.getStatus();
+                    up.enabled = true;
+                    down.enabled = false;
                 }
             }
 
             MenuItem {
+                id: up
                 text: qsTr("Up")
                 enabled: !client.isUp()
 
@@ -79,7 +85,7 @@ Page {
                 id: status
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width
-                text: qsTr("Starting…")
+                text: client.getStatus()
                 wrapMode: Text.WordWrap
             }
         }

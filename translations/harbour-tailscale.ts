@@ -2,6 +2,17 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en">
 <context>
+    <name>CoverPage</name>
+    <message>
+        <source>Up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Down</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MainPage</name>
     <message>
         <source>Tailscale status</source>
@@ -13,10 +24,6 @@
     </message>
     <message>
         <source>Up</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Starting…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -18,8 +18,8 @@ public:
     Q_INVOKABLE void up();
 
 Q_SIGNALS:
-    void loginRequest(const QString url);
-    void loginCompleted();
+    void loginRequest(QString url);
+    void statusUpdate(bool isUp);
 
 private:
     QProcess *m_cmd;

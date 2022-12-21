@@ -4,6 +4,8 @@
 
 This application uses **root** privileges to run as this is needed to start `tailscale` with root privileges. This is a security risk!
 
+This project **IS NOT** endorsed by Tailscale Inc.
+
 ## Translations
 
 [![Translation status](https://hosted.weblate.org/widgets/harbour-tailscale/-/svg-badge.svg)](https://hosted.weblate.org/engage/harbour-tailscale/?utm_source=widget)
