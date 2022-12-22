@@ -4,15 +4,7 @@
 <context>
     <name>About</name>
     <message>
-        <source>Down</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Up</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tailscale status</source>
+        <source>Tailscale version</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -39,6 +31,10 @@
     </message>
     <message>
         <source>Up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
