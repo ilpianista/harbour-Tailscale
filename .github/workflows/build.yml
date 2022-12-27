@@ -12,6 +12,7 @@ on:
 
 env:
   RELEASE: 4.4.0.68
+  TAILSCALE_VERSION: 1.34.1
 
 jobs:
   build:
@@ -30,10 +31,10 @@ jobs:
             cd build ;
             cp -r /workspace/* . ;
             cd rpm ;
-            curl -O https://pkgs.tailscale.com/stable/tailscale_1.34.1_arm.tgz ;
-            tar xfz tailscale_1.34.1_arm.tgz ;
-            mv tailscale_1.34.1_arm/tailscale . ;
-            mv tailscale_1.34.1_arm/tailscaled . ;
+            curl -O https://pkgs.tailscale.com/stable/tailscale_${TAILSCALE_VERSION}_arm.tgz ;
+            tar xfz tailscale_${TAILSCALE_VERSION}_arm.tgz ;
+            mv tailscale_${TAILSCALE_VERSION}_arm/tailscale . ;
+            mv tailscale_${TAILSCALE_VERSION}_arm/tailscaled . ;
             cd .. ;
             mb2 -t SailfishOS-$RELEASE-armv7hl build ;
             sudo mkdir -p /workspace/RPMS ;
@@ -46,10 +47,10 @@ jobs:
             cd build ;
             cp -r /workspace/* . ;
             cd rpm ;
-            curl -O https://pkgs.tailscale.com/stable/tailscale_1.34.1_386.tgz ;
-            tar xfz tailscale_1.34.1_386.tgz ;
-            mv tailscale_1.34.1_386/tailscale . ;
-            mv tailscale_1.34.1_386/tailscaled . ;
+            curl -O https://pkgs.tailscale.com/stable/tailscale_${TAILSCALE_VERSION}_386.tgz ;
+            tar xfz tailscale_${TAILSCALE_VERSION}_386.tgz ;
+            mv tailscale_${TAILSCALE_VERSION}_386/tailscale . ;
+            mv tailscale_${TAILSCALE_VERSION}_386/tailscaled . ;
             cd .. ;
             mb2 -t SailfishOS-$RELEASE-i486 build ;
             sudo mkdir -p /workspace/RPMS ;
@@ -62,10 +63,10 @@ jobs:
             cd build ;
             cp -r /workspace/* . ;
             cd rpm ;
-            curl -O https://pkgs.tailscale.com/stable/tailscale_1.34.1_arm64.tgz ;
-            tar xfz tailscale_1.34.1_arm64.tgz ;
-            mv tailscale_1.34.1_arm64/tailscale . ;
-            mv tailscale_1.34.1_arm64/tailscaled . ;
+            curl -O https://pkgs.tailscale.com/stable/tailscale_${TAILSCALE_VERSION}_arm64.tgz ;
+            tar xfz tailscale_${TAILSCALE_VERSION}_arm64.tgz ;
+            mv tailscale_${TAILSCALE_VERSION}_arm64/tailscale . ;
+            mv tailscale_${TAILSCALE_VERSION}_arm64/tailscaled . ;
             cd .. ;
             mb2 -t SailfishOS-$RELEASE-aarch64 build ;
             sudo mkdir -p /workspace/RPMS ;
