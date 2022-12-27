@@ -48,7 +48,7 @@ Screenshots:
  - https://github.com/ilpianista/harbour-tailscale/-/raw/master/screenshots/screenshot_1.png
 Url:
   Homepage: https://github.com/ilpianista/harbour-tailscale
-  Bugtracker: https://github.com/ilpianista/harbour-tailscale/-/issues
+  Bugtracker: https://github.com/ilpianista/harbour-tailscale/issues
   Donation: https://liberapay.com/ilpianista
 %endif
 
