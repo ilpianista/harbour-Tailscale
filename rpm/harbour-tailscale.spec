@@ -110,9 +110,11 @@ desktop-file-install --delete-original       \
 %post
 systemctl daemon-reload
 
-%postun
-if [ $1 = 0 ]; then
+%preun
+if [ $1 -eq 0 ]; then
   systemctl stop tailscaled.service
   systemctl disable tailscaled.service
-  systemctl daemon-reload
 fi
+
+%postun
+systemctl daemon-reload
