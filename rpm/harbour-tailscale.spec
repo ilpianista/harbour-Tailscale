@@ -45,7 +45,7 @@ Categories:
 Custom:
   Repo: https://github.com/ilpianista/harbour-tailscale
 Screenshots:
- - https://github.com/ilpianista/harbour-tailscale/-/raw/master/screenshots/screenshot_1.png
+ - https://raw.githubusercontent.com/ilpianista/harbour-Tailscale/master/screenshots/screenshot_1.png
 Url:
   Homepage: https://github.com/ilpianista/harbour-tailscale
   Bugtracker: https://github.com/ilpianista/harbour-tailscale/issues
