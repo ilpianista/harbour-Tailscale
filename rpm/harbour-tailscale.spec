@@ -83,7 +83,7 @@ install -m644 %{SOURCE1} %{buildroot}%{_unitdir}
 install -m755 %{SOURCE2} %{buildroot}%{_bindir}
 install -m755 %{SOURCE3} %{buildroot}%{_bindir}
 
-install -d %{buildroot}%{_libdir}/tailscale
+install -d %{buildroot}%{_sharedstatedir}/tailscale
 install -d %{buildroot}%{_localstatedir}/cache/tailscale
 
 install -d %{buildroot}%{_sysconfdir}/sysconfig
@@ -102,7 +102,7 @@ desktop-file-install --delete-original       \
 %{_datadir}/%{name}
 %{_sysconfdir}/sysconfig/tailscaled
 %{_unitdir}/tailscaled.service
-%dir %{_libdir}/tailscale
+%dir %{_sharedstatedir}/tailscale
 %dir %{_localstatedir}/cache/tailscale
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
