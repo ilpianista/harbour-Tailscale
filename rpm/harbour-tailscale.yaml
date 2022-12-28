@@ -64,6 +64,7 @@ Files:
   - '%{_sysconfdir}/sysconfig/tailscaled'
   - '%{_unitdir}/tailscaled.service'
   - '%dir %{_libdir}/tailscale'
+  - '%dir %{_localstatedir}/cache/tailscale'
   - '%{_datadir}/applications/%{name}.desktop'
   - '%{_datadir}/icons/hicolor/*/apps/%{name}.png'
 
