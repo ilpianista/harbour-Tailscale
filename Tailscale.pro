@@ -14,7 +14,6 @@ OTHER_FILES += \
     harbour-tailscale.desktop \
     rpm/harbour-tailscale.changes \
     rpm/harbour-tailscale.spec \
-    rpm/harbour-tailscale.yaml \
     rpm/tailscale.service \
     translations/*.ts
 

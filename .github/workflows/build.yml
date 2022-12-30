@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Prepare
       run: mkdir RPMS
@@ -27,53 +27,44 @@ jobs:
     - name: Build armv7hl
       id: build_armv7hl
       run: docker run --rm --privileged -v $PWD:/workspace coderus/sailfishos-platform-sdk:$RELEASE /bin/bash -c "
-            mkdir -p build ;
-            cd build ;
+            mkdir -p build --prepare ;
+            cd build --prepare ;
             cp -r /workspace/* . ;
             cd rpm ;
             curl -O https://pkgs.tailscale.com/stable/tailscale_${TAILSCALE_VERSION}_arm.tgz ;
-            tar xfz tailscale_${TAILSCALE_VERSION}_arm.tgz ;
-            mv tailscale_${TAILSCALE_VERSION}_arm/tailscale . ;
-            mv tailscale_${TAILSCALE_VERSION}_arm/tailscaled . ;
             cd .. ;
-            mb2 -t SailfishOS-$RELEASE-armv7hl build ;
+            mb2 -t SailfishOS-$RELEASE-armv7hl build --prepare ;
             sudo mkdir -p /workspace/RPMS ;
             sudo cp -r RPMS/*.rpm /workspace/RPMS"
 
     - name: Build i486
       id: build_i486
       run: docker run --rm --privileged -v $PWD:/workspace coderus/sailfishos-platform-sdk:$RELEASE /bin/bash -c "
-            mkdir -p build ;
-            cd build ;
+            mkdir -p build --prepare ;
+            cd build --prepare ;
             cp -r /workspace/* . ;
             cd rpm ;
             curl -O https://pkgs.tailscale.com/stable/tailscale_${TAILSCALE_VERSION}_386.tgz ;
-            tar xfz tailscale_${TAILSCALE_VERSION}_386.tgz ;
-            mv tailscale_${TAILSCALE_VERSION}_386/tailscale . ;
-            mv tailscale_${TAILSCALE_VERSION}_386/tailscaled . ;
             cd .. ;
-            mb2 -t SailfishOS-$RELEASE-i486 build ;
+            mb2 -t SailfishOS-$RELEASE-i486 build --prepare ;
             sudo mkdir -p /workspace/RPMS ;
             sudo cp -r RPMS/*.rpm /workspace/RPMS"
 
     - name: Build aarch64
       id: build_aarch64
       run: docker run --rm --privileged -v $PWD:/workspace coderus/sailfishos-platform-sdk:$RELEASE /bin/bash -c "
-            mkdir -p build ;
-            cd build ;
+            mkdir -p build --prepare ;
+            cd build --prepare ;
             cp -r /workspace/* . ;
             cd rpm ;
             curl -O https://pkgs.tailscale.com/stable/tailscale_${TAILSCALE_VERSION}_arm64.tgz ;
-            tar xfz tailscale_${TAILSCALE_VERSION}_arm64.tgz ;
-            mv tailscale_${TAILSCALE_VERSION}_arm64/tailscale . ;
-            mv tailscale_${TAILSCALE_VERSION}_arm64/tailscaled . ;
             cd .. ;
-            mb2 -t SailfishOS-$RELEASE-aarch64 build ;
+            mb2 -t SailfishOS-$RELEASE-aarch64 build --prepare ;
             sudo mkdir -p /workspace/RPMS ;
             sudo cp -r RPMS/*.rpm /workspace/RPMS"
 
     - name: Upload build result
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: rpms
         path: RPMS
