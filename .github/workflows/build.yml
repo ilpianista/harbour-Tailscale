@@ -12,7 +12,7 @@ on:
 
 env:
   RELEASE: 4.4.0.68
-  TAILSCALE_VERSION: 1.34.1
+  TAILSCALE_VERSION: 1.34.2
 
 jobs:
   build:
