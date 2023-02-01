@@ -8,6 +8,4 @@ Name=Tailscale
 Comment=Tailscale makes networking easy
 
 [X-Sailjail]
-Permissions=Internet
-OrganizationName=dev.scarpino
-ApplicationName=harbour-tailscale
+Sandboxing=Disabled
