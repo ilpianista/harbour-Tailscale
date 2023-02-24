@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     QScopedPointer<QQuickView> view(SailfishApp::createView());
 
     QCoreApplication::setApplicationName(QStringLiteral("harbour-tailscale"));
-    QCoreApplication::setOrganizationName(QStringLiteral("scarpino.dev"));
+    QCoreApplication::setOrganizationName(QStringLiteral("dev.scarpino"));
 
     Client client;
     view->rootContext()->setContextProperty("client", &client);

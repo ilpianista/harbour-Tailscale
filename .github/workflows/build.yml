@@ -11,7 +11,7 @@ on:
       - master
 
 env:
-  RELEASE: 4.4.0.68
+  RELEASE: 4.5.0.16
   TAILSCALE_VERSION: 1.36.2
 
 jobs:
@@ -27,8 +27,8 @@ jobs:
     - name: Build armv7hl
       id: build_armv7hl
       run: docker run --rm --privileged -v $PWD:/workspace coderus/sailfishos-platform-sdk:$RELEASE /bin/bash -c "
-            mkdir -p build --prepare ;
-            cd build --prepare ;
+            mkdir -p build ;
+            cd build ;
             cp -r /workspace/* . ;
             cd rpm ;
             curl -O https://pkgs.tailscale.com/stable/tailscale_${TAILSCALE_VERSION}_arm.tgz ;
@@ -40,8 +40,8 @@ jobs:
     - name: Build i486
       id: build_i486
       run: docker run --rm --privileged -v $PWD:/workspace coderus/sailfishos-platform-sdk:$RELEASE /bin/bash -c "
-            mkdir -p build --prepare ;
-            cd build --prepare ;
+            mkdir -p build ;
+            cd build ;
             cp -r /workspace/* . ;
             cd rpm ;
             curl -O https://pkgs.tailscale.com/stable/tailscale_${TAILSCALE_VERSION}_386.tgz ;
@@ -53,8 +53,8 @@ jobs:
     - name: Build aarch64
       id: build_aarch64
       run: docker run --rm --privileged -v $PWD:/workspace coderus/sailfishos-platform-sdk:$RELEASE /bin/bash -c "
-            mkdir -p build --prepare ;
-            cd build --prepare ;
+            mkdir -p build ;
+            cd build ;
             cp -r /workspace/* . ;
             cd rpm ;
             curl -O https://pkgs.tailscale.com/stable/tailscale_${TAILSCALE_VERSION}_arm64.tgz ;
