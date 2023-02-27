@@ -27,7 +27,7 @@ Page {
     DBusInterface {
         id: systemd
 
-        bus: "SystemBus"
+        bus: DBus.SystemBus
         service: 'org.freedesktop.systemd1'
         path: '/org/freedesktop/systemd1'
         iface: 'org.freedesktop.systemd1.Manager'
@@ -36,7 +36,10 @@ Page {
     Connections {
         target: client
 
-        onLoginRequest: Qt.openUrlExternally(url);
+        onLoginRequest: {
+            console.log("Opening browser at", url)
+            Qt.openUrlExternally(url);
+        }
 
         onStatusUpdate: {
             status.text = client.getStatus();

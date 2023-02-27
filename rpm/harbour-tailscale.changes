@@ -1,2 +1,9 @@
+* Wed Feb 01 2023 Andrea Scarpino <andrea@scarpino.dev> 0.0.3-1
+- Disable SailJail to fix application start from the launcher.
+
+* Wed Dec 28 2022 Andrea Scarpino <andrea@scarpino.dev> 0.0.2-1
+- Stop tailscale before removing it
+- Fix directory mapping in RPM spec file
+
 * Wed Dec 14 2022 Andrea Scarpino <andrea@scarpino.dev> 0.0.1-1
 - Start/stop tailscale

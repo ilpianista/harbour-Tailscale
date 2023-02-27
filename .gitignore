@@ -4,5 +4,4 @@
 *.autosave
 RPMS
 
-rpm/tailscale
-rpm/tailscaled
+rpm/*.tgz

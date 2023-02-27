@@ -11,14 +11,15 @@ on:
       - master
 
 env:
-  RELEASE: 4.4.0.68
+  RELEASE: 4.5.0.16
+  TAILSCALE_VERSION: 1.36.2
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Prepare
       run: mkdir RPMS
@@ -30,12 +31,9 @@ jobs:
             cd build ;
             cp -r /workspace/* . ;
             cd rpm ;
-            curl -O https://pkgs.tailscale.com/stable/tailscale_1.34.1_arm.tgz ;
-            tar xfz tailscale_1.34.1_arm.tgz ;
-            mv tailscale_1.34.1_arm/tailscale . ;
-            mv tailscale_1.34.1_arm/tailscaled . ;
+            curl -O https://pkgs.tailscale.com/stable/tailscale_${TAILSCALE_VERSION}_arm.tgz ;
             cd .. ;
-            mb2 -t SailfishOS-$RELEASE-armv7hl build ;
+            mb2 -t SailfishOS-$RELEASE-armv7hl build --prepare ;
             sudo mkdir -p /workspace/RPMS ;
             sudo cp -r RPMS/*.rpm /workspace/RPMS"
 
@@ -46,12 +44,9 @@ jobs:
             cd build ;
             cp -r /workspace/* . ;
             cd rpm ;
-            curl -O https://pkgs.tailscale.com/stable/tailscale_1.34.1_386.tgz ;
-            tar xfz tailscale_1.34.1_386.tgz ;
-            mv tailscale_1.34.1_386/tailscale . ;
-            mv tailscale_1.34.1_386/tailscaled . ;
+            curl -O https://pkgs.tailscale.com/stable/tailscale_${TAILSCALE_VERSION}_386.tgz ;
             cd .. ;
-            mb2 -t SailfishOS-$RELEASE-i486 build ;
+            mb2 -t SailfishOS-$RELEASE-i486 build --prepare ;
             sudo mkdir -p /workspace/RPMS ;
             sudo cp -r RPMS/*.rpm /workspace/RPMS"
 
@@ -62,17 +57,14 @@ jobs:
             cd build ;
             cp -r /workspace/* . ;
             cd rpm ;
-            curl -O https://pkgs.tailscale.com/stable/tailscale_1.34.1_arm64.tgz ;
-            tar xfz tailscale_1.34.1_arm64.tgz ;
-            mv tailscale_1.34.1_arm64/tailscale . ;
-            mv tailscale_1.34.1_arm64/tailscaled . ;
+            curl -O https://pkgs.tailscale.com/stable/tailscale_${TAILSCALE_VERSION}_arm64.tgz ;
             cd .. ;
-            mb2 -t SailfishOS-$RELEASE-aarch64 build ;
+            mb2 -t SailfishOS-$RELEASE-aarch64 build --prepare ;
             sudo mkdir -p /workspace/RPMS ;
             sudo cp -r RPMS/*.rpm /workspace/RPMS"
 
     - name: Upload build result
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: rpms
         path: RPMS
