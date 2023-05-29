@@ -48,23 +48,6 @@ BuildRequires:  desktop-file-utils
 
 Tailscale makes networking easy
 
-%if "%{?vendor}" == "chum"
-PackageName: tailscale
-Type: desktop-application
-DeveloperName: Andrea Scarpino
-Categories:
- - Network
-Custom:
-  Repo: https://github.com/ilpianista/harbour-tailscale
-Screenshots:
- - https://raw.githubusercontent.com/ilpianista/harbour-Tailscale/master/screenshots/screenshot_1.png
-Url:
-  Homepage: https://github.com/ilpianista/harbour-tailscale
-  Bugtracker: https://github.com/ilpianista/harbour-tailscale/issues
-  Donation: https://liberapay.com/ilpianista
-%endif
-
-
 %prep
 %setup -q -n %{name}-%{version}
 
