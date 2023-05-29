@@ -10,11 +10,12 @@ OTHER_FILES += \
     qml/cover/CoverPage.qml \
     qml/pages/About.qml \
     qml/pages/MainPage.qml \
-    qml/tailscale.qml \
+    qml/Tailscale.qml \
     harbour-tailscale.desktop \
     rpm/harbour-tailscale.changes \
     rpm/harbour-tailscale.spec \
-    rpm/tailscale.service \
+    rpm/tailscaled.defaults \
+    rpm/tailscaled.service \
     translations/*.ts
 
 CONFIG += sailfishapp_i18n
