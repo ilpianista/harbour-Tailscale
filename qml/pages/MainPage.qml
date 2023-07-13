@@ -33,6 +33,15 @@ Page {
         iface: 'org.freedesktop.systemd1.Manager'
     }
 
+    DBusInterface {
+        id: systemdUser
+
+        bus: DBus.SessionBus
+        service: 'org.freedesktop.systemd1'
+        path: '/org/freedesktop/systemd1'
+        iface: 'org.freedesktop.systemd1.Manager'
+    }
+
     Connections {
         target: client
 
@@ -69,6 +78,7 @@ Page {
                     status.text = client.getStatus();
                     up.enabled = true;
                     down.enabled = false;
+                    restartBrowser();
                 }
             }
 
@@ -77,7 +87,10 @@ Page {
                 text: qsTr("Up")
                 enabled: !client.isUp()
 
-                onClicked: client.up()
+                onClicked: {
+                    client.up();
+                    restartBrowser();
+                }
             }
         }
 
@@ -108,6 +121,21 @@ Page {
             ],
             function(result) {
                 status.text = client.getStatus();
+            },
+            function(error, message) {
+                console.log("failed (" + error + ") with:", message)
+            }
+        );
+    }
+
+    function restartBrowser() {
+        systemdUser.typedCall('RestartUnit',
+            [
+                { 'type': 's', 'value': 'booster-browser@sailfish-browser.service' },
+                { 'type': 's', 'value': 'fail' }
+            ],
+            function(result) {
+                console.log("sailfish-browser restarted")
             },
             function(error, message) {
                 console.log("failed (" + error + ") with:", message)
