@@ -1,3 +1,7 @@
+* Mon Jul 17 2023 Andrea Scarpino <andrea@scarpino.dev> 0.0.6-1
+- Add up/down action to cover
+- Fix segmentation fault on exit
+
 * Thu Jul 13 2023 Andrea Scarpino <andrea@scarpino.dev> 0.0.5-1
 - Restart the browser so that it picks up resolv.conf changes
 - Bump tailscale version
