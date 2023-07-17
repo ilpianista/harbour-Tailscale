@@ -18,12 +18,39 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import Nemo.DBus 2.0
 import "pages"
 
 ApplicationWindow
 {
+    id: appWindow
+
     initialPage: Component { MainPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
+
+    DBusInterface {
+        id: systemdUser
+
+        bus: DBus.SessionBus
+        service: 'org.freedesktop.systemd1'
+        path: '/org/freedesktop/systemd1'
+        iface: 'org.freedesktop.systemd1.Manager'
+    }
+
+    function restartBrowser() {
+        systemdUser.typedCall('RestartUnit',
+            [
+                { 'type': 's', 'value': 'booster-browser@sailfish-browser.service' },
+                { 'type': 's', 'value': 'fail' }
+            ],
+            function(result) {
+                console.log("sailfish-browser restarted")
+            },
+            function(error, message) {
+                console.log("failed (" + error + ") with:", message)
+            }
+        );
+    }
 }
 
 

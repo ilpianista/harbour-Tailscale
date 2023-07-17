@@ -26,6 +26,7 @@ CoverBackground {
 
         onStatusUpdate: {
             placeholder.text = isUp ? qsTr("Up") : qsTr("Down");
+            cover.iconSource = isUp ? "image://theme/icon-m-dismiss" : "image://theme/icon-m-global-proxy";
         }
     }
 
@@ -33,5 +34,22 @@ CoverBackground {
         id: placeholder
         text: client.isUp() ? qsTr("Up") : qsTr("Down");
         icon.source: "/usr/share/icons/hicolor/86x86/apps/harbour-tailscale.png"
+    }
+
+    CoverActionList {
+        CoverAction {
+            id: cover
+            iconSource: client.isUp() ? "image://theme/icon-m-dismiss" : "image://theme/icon-m-global-proxy";
+
+            onTriggered: {
+                if (client.isUp()) {
+                    client.down();
+                } else {
+                    client.up();
+                }
+
+                appWindow.restartBrowser();
+            }
+        }
     }
 }
