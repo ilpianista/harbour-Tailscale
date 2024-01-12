@@ -1,3 +1,6 @@
+* Fri Jan 12 2024 Andrea Scarpino <andrea@scarpino.dev> 0.0.7-1
+- Update tailscale to 1.56.1
+
 * Mon Jul 17 2023 Andrea Scarpino <andrea@scarpino.dev> 0.0.6-1
 - Add up/down action to cover
 - Fix segmentation fault on exit
