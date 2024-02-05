@@ -36,7 +36,6 @@ Client::Client(QObject *parent) :
 
 Client::~Client()
 {
-    delete m_cmd;
 }
 
 QString Client::getStatus() const
@@ -66,6 +65,7 @@ void Client::onUpFinished(int exitCode)
         Q_EMIT statusUpdate(true);
     }
     m_cmd->deleteLater();
+    m_cmd = 0;
 }
 
 void Client::onUpReadyRead()

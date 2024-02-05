@@ -1,6 +1,9 @@
 [Desktop Entry]
 Type=Application
-X-Nemo-Application-Type=silica-qt5
+# From https://harbour.jolla.com/faq
+# > this will make sure that the application is launched using the right booster, and will make startup faster
+# However this makes impossible to start the tailscale service when launched from lipstick.
+#X-Nemo-Application-Type=silica-qt5
 Categories=Network;
 Icon=harbour-tailscale
 Exec=harbour-tailscale

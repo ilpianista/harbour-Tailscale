@@ -6,6 +6,10 @@ This application uses **root** privileges to run as this is needed to start `tai
 
 This project **IS NOT** endorsed by Tailscale Inc.
 
+## Install
+
+Install via [OpenRepos](https://openrepos.net/content/ilpianista/tailscale).
+
 ## Translations
 
 [![Translation status](https://hosted.weblate.org/widgets/harbour-tailscale/-/svg-badge.svg)](https://hosted.weblate.org/engage/harbour-tailscale/?utm_source=widget)

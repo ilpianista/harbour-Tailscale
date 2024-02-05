@@ -69,6 +69,7 @@ Page {
                     status.text = client.getStatus();
                     up.enabled = true;
                     down.enabled = false;
+                    appWindow.restartBrowser();
                 }
             }
 
@@ -77,7 +78,10 @@ Page {
                 text: qsTr("Up")
                 enabled: !client.isUp()
 
-                onClicked: client.up()
+                onClicked: {
+                    client.up();
+                    appWindow.restartBrowser();
+                }
             }
         }
 

@@ -1,3 +1,18 @@
+* Fri Jan 12 2024 Andrea Scarpino <andrea@scarpino.dev> 0.0.7-1
+- Update tailscale to 1.56.1
+
+* Mon Jul 17 2023 Andrea Scarpino <andrea@scarpino.dev> 0.0.6-1
+- Add up/down action to cover
+- Fix segmentation fault on exit
+
+* Thu Jul 13 2023 Andrea Scarpino <andrea@scarpino.dev> 0.0.5-1
+- Restart the browser so that it picks up resolv.conf changes
+- Bump tailscale version
+
+* Wed May 24 2023 Andrea Scarpino <andrea@scarpino.dev> 0.0.4-1
+- Disable liptstick to fix application start from the launcher.
+- Bump tailscale version
+
 * Wed Feb 01 2023 Andrea Scarpino <andrea@scarpino.dev> 0.0.3-1
 - Disable SailJail to fix application start from the launcher.
 
