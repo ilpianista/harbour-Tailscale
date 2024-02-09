@@ -118,4 +118,17 @@ Page {
             }
         );
     }
+
+    Component.onDestruction: {
+        systemd.typedCall('StopUnit',
+            [
+                { 'type': 's', 'value': 'tailscaled.service' },
+                { 'type': 's', 'value': 'fail' }
+            ],
+            function(result) {},
+            function(error, message) {
+                console.log("failed (" + error + ") with:", message)
+            }
+        );
+    }
 }
