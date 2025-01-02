@@ -5,37 +5,37 @@
     <name>About</name>
     <message>
         <source>Tailscale version</source>
-        <translation type="unfinished"></translation>
+        <translation>டெயில்ச்கேல் பதிப்பு</translation>
     </message>
 </context>
 <context>
     <name>CoverPage</name>
     <message>
         <source>Up</source>
-        <translation type="unfinished"></translation>
+        <translation>மேலே</translation>
     </message>
     <message>
         <source>Down</source>
-        <translation type="unfinished"></translation>
+        <translation>கீழே</translation>
     </message>
 </context>
 <context>
     <name>MainPage</name>
     <message>
         <source>Tailscale status</source>
-        <translation type="unfinished"></translation>
+        <translation>டெயில்ச்கேல் நிலை</translation>
     </message>
     <message>
         <source>Down</source>
-        <translation type="unfinished"></translation>
+        <translation>கீழே</translation>
     </message>
     <message>
         <source>Up</source>
-        <translation type="unfinished"></translation>
+        <translation>மேலே</translation>
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>பற்றி</translation>
     </message>
 </context>
 </TS>
