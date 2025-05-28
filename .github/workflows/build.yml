@@ -11,8 +11,8 @@ on:
       - master
 
 env:
-  RELEASE: 4.5.0.16
-  TAILSCALE_VERSION: 1.58.2
+  RELEASE: 5.0.0.67
+  TAILSCALE_VERSION: 1.82.0
 
 jobs:
   build:
