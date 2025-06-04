@@ -1,3 +1,6 @@
+* Wed Jun 4 2025 Andrea Scarpino <andrea@scarpino.dev> 0.0.9-1
+- Update tailscale to 1.84.0
+
 * Fri Feb 9 2024 Andrea Scarpino <andrea@scarpino.dev> 0.0.8-1
 - Stop tailscale on application close
 - Update tailscale to 1.58.2
