@@ -5,37 +5,37 @@
     <name>About</name>
     <message>
         <source>Tailscale version</source>
-        <translation type="unfinished"></translation>
+        <translation>Versión de Tailscale</translation>
     </message>
 </context>
 <context>
     <name>CoverPage</name>
     <message>
         <source>Up</source>
-        <translation type="unfinished"></translation>
+        <translation>En funcionamiento</translation>
     </message>
     <message>
         <source>Down</source>
-        <translation type="unfinished"></translation>
+        <translation>Desconectado</translation>
     </message>
 </context>
 <context>
     <name>MainPage</name>
     <message>
         <source>Tailscale status</source>
-        <translation type="unfinished"></translation>
+        <translation>Estado de Tailscale</translation>
     </message>
     <message>
         <source>Down</source>
-        <translation type="unfinished"></translation>
+        <translation>Desconectado</translation>
     </message>
     <message>
         <source>Up</source>
-        <translation type="unfinished"></translation>
+        <translation>En funcionamiento</translation>
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Acerca de</translation>
     </message>
 </context>
 </TS>
