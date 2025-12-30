@@ -20,11 +20,13 @@ OTHER_FILES += \
 
 CONFIG += sailfishapp_i18n
 TRANSLATIONS += \
+    translations/harbour-tailscale-es.ts \
     translations/harbour-tailscale-et.ts \
     translations/harbour-tailscale-it.ts \
     translations/harbour-tailscale-nb_NO.ts \
     translations/harbour-tailscale-ru.ts \
-    translations/harbour-tailscale-ta.ts
+    translations/harbour-tailscale-ta.ts \
+    translations/harbour-tailscale-tr.ts
 
 HEADERS += \
     src/client.h
