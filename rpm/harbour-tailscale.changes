@@ -1,3 +1,7 @@
+* Thu Jan 15 2026 Andrea Scarpino <andrea@scarpino.dev> 0.0.10-1
+- Update tailscale to 1.92.5
+- Translations update.
+
 * Wed Jun 4 2025 Andrea Scarpino <andrea@scarpino.dev> 0.0.9-1
 - Update tailscale to 1.84.0
 
