@@ -37,7 +37,7 @@ Page {
         target: client
 
         onLoginRequest: {
-            console.log("Opening browser at", url)
+            console.log("Opening browser at", url);
             Qt.openUrlExternally(url);
         }
 
@@ -105,30 +105,34 @@ Page {
     }
 
     Component.onCompleted: {
-        systemd.typedCall('StartUnit',
-            [
-                { 'type': 's', 'value': 'tailscaled.service' },
-                { 'type': 's', 'value': 'fail' }
-            ],
-            function(result) {
-                status.text = client.getStatus();
+        systemd.typedCall('StartUnit', [
+            {
+                'type': 's',
+                'value': 'tailscaled.service'
             },
-            function(error, message) {
-                console.log("failed (" + error + ") with:", message)
+            {
+                'type': 's',
+                'value': 'fail'
             }
-        );
+        ], function (result) {
+            status.text = client.getStatus();
+        }, function (error, message) {
+            console.log("failed (" + error + ") with:", message);
+        });
     }
 
     Component.onDestruction: {
-        systemd.typedCall('StopUnit',
-            [
-                { 'type': 's', 'value': 'tailscaled.service' },
-                { 'type': 's', 'value': 'fail' }
-            ],
-            function(result) {},
-            function(error, message) {
-                console.log("failed (" + error + ") with:", message)
+        systemd.typedCall('StopUnit', [
+            {
+                'type': 's',
+                'value': 'tailscaled.service'
+            },
+            {
+                'type': 's',
+                'value': 'fail'
             }
-        );
+        ], function (result) {}, function (error, message) {
+            console.log("failed (" + error + ") with:", message);
+        });
     }
 }

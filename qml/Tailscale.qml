@@ -21,11 +21,12 @@ import Sailfish.Silica 1.0
 import Nemo.DBus 2.0
 import "pages"
 
-ApplicationWindow
-{
+ApplicationWindow {
     id: appWindow
 
-    initialPage: Component { MainPage { } }
+    initialPage: Component {
+        MainPage {}
+    }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
 
     DBusInterface {
@@ -38,19 +39,19 @@ ApplicationWindow
     }
 
     function restartBrowser() {
-        systemdUser.typedCall('RestartUnit',
-            [
-                { 'type': 's', 'value': 'booster-browser@sailfish-browser.service' },
-                { 'type': 's', 'value': 'fail' }
-            ],
-            function(result) {
-                console.log("sailfish-browser restarted")
+        systemdUser.typedCall('RestartUnit', [
+            {
+                'type': 's',
+                'value': 'booster-browser@sailfish-browser.service'
             },
-            function(error, message) {
-                console.log("failed (" + error + ") with:", message)
+            {
+                'type': 's',
+                'value': 'fail'
             }
-        );
+        ], function (result) {
+            console.log("sailfish-browser restarted");
+        }, function (error, message) {
+            console.log("failed (" + error + ") with:", message);
+        });
     }
 }
-
-

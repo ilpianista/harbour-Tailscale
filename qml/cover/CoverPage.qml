@@ -32,14 +32,14 @@ CoverBackground {
 
     CoverPlaceholder {
         id: placeholder
-        text: client.isUp() ? qsTr("Up") : qsTr("Down");
+        text: client.isUp() ? qsTr("Up") : qsTr("Down")
         icon.source: "/usr/share/icons/hicolor/86x86/apps/harbour-tailscale.png"
     }
 
     CoverActionList {
         CoverAction {
             id: cover
-            iconSource: client.isUp() ? "image://theme/icon-m-dismiss" : "image://theme/icon-m-global-proxy";
+            iconSource: client.isUp() ? "image://theme/icon-m-dismiss" : "image://theme/icon-m-global-proxy"
 
             onTriggered: {
                 if (client.isUp()) {

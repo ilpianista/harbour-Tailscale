@@ -28,15 +28,12 @@
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
 
-Client::Client(QObject *parent) :
-    QObject(parent)
-  , m_cmd(0)
-{
-}
+Client::Client(QObject *parent)
+    : QObject(parent)
+    , m_cmd(0)
+{}
 
-Client::~Client()
-{
-}
+Client::~Client() {}
 
 QString Client::getStatus() const
 {
@@ -53,7 +50,7 @@ void Client::up()
     m_cmd = new QProcess(this);
     m_cmd->setProcessChannelMode(QProcess::MergedChannels);
 
-    connect(m_cmd, (void (QProcess::*)(int))&QProcess::finished, this, &Client::onUpFinished);
+    connect(m_cmd, (void (QProcess::*)(int)) &QProcess::finished, this, &Client::onUpFinished);
     connect(m_cmd, &QProcess::readyReadStandardOutput, this, &Client::onUpReadyRead);
 
     m_cmd->start(QStringLiteral("/usr/bin/tailscale"), QStringList("up"));
