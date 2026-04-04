@@ -5,37 +5,37 @@
     <name>About</name>
     <message>
         <source>Tailscale version</source>
-        <translation type="unfinished"></translation>
+        <translation>Tailscale 版本</translation>
     </message>
 </context>
 <context>
     <name>CoverPage</name>
     <message>
         <source>Up</source>
-        <translation type="unfinished"></translation>
+        <translation>上</translation>
     </message>
     <message>
         <source>Down</source>
-        <translation type="unfinished"></translation>
+        <translation>下</translation>
     </message>
 </context>
 <context>
     <name>MainPage</name>
     <message>
         <source>Tailscale status</source>
-        <translation type="unfinished"></translation>
+        <translation>Tailscale 状态</translation>
     </message>
     <message>
         <source>Down</source>
-        <translation type="unfinished"></translation>
+        <translation>下</translation>
     </message>
     <message>
         <source>Up</source>
-        <translation type="unfinished"></translation>
+        <translation>上</translation>
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>关于</translation>
     </message>
 </context>
 </TS>
