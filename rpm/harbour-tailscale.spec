@@ -13,7 +13,7 @@ Summary:    tailscale
 Version:    0.0.10
 Release:    1
 Group:      Qt/Qt
-License:    GPLv3
+License:    MIT
 URL:        https://scarpino.dev
 Source0:    %{name}-%{version}.tar.bz2
 %ifarch %arm
@@ -52,8 +52,8 @@ Tailscale makes networking easy
 %setup -q -n %{name}-%{version}
 
 #%setup -a 1 doesn't work in mb2
-if [ ! -d %{tailscale_dir} ]; then
-  tar xf %{SOURCE1}
+if [ ! -d %{_sourcedir}/%{tailscale_dir} ]; then
+  tar xf %{SOURCE1} -C %{_sourcedir}
 fi
 
 # >> setup
@@ -80,8 +80,8 @@ rm -rf %{buildroot}
 install -d %{buildroot}%{_unitdir}
 install -m644 %{SOURCE2} %{buildroot}%{_unitdir}
 
-install -m755 %{tailscale_dir}/tailscale %{buildroot}%{_bindir}
-install -m755 %{tailscale_dir}/tailscaled %{buildroot}%{_bindir}
+install -m755 %{_sourcedir}/%{tailscale_dir}/tailscale %{buildroot}%{_bindir}
+install -m755 %{_sourcedir}/%{tailscale_dir}/tailscaled %{buildroot}%{_bindir}
 
 install -d %{buildroot}%{_sharedstatedir}/tailscale
 install -d %{buildroot}%{_localstatedir}/cache/tailscale

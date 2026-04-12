@@ -5,3 +5,4 @@
 RPMS
 
 rpm/*.tgz
+rpm/tailscale_*/

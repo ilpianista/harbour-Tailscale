@@ -15,7 +15,6 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import Nemo.DBus 2.0
@@ -87,7 +86,9 @@ Page {
 
         Column {
             id: column
-            width: parent.width
+
+            x: Theme.horizontalPageMargin
+            width: parent.width - Theme.horizontalPageMargin * 2
             spacing: Theme.paddingLarge
 
             PageHeader {
@@ -99,7 +100,8 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width
                 text: client.getStatus()
-                wrapMode: Text.WordWrap
+                font.pixelSize: Theme.fontSizeSmall
+                wrapMode: Text.Wrap
             }
         }
     }
@@ -107,12 +109,12 @@ Page {
     Component.onCompleted: {
         systemd.typedCall('StartUnit', [
             {
-                'type': 's',
-                'value': 'tailscaled.service'
+                "type": 's',
+                "value": 'tailscaled.service'
             },
             {
-                'type': 's',
-                'value': 'fail'
+                "type": 's',
+                "value": 'fail'
             }
         ], function (result) {
             status.text = client.getStatus();
@@ -124,12 +126,12 @@ Page {
     Component.onDestruction: {
         systemd.typedCall('StopUnit', [
             {
-                'type': 's',
-                'value': 'tailscaled.service'
+                "type": 's',
+                "value": 'tailscaled.service'
             },
             {
-                'type': 's',
-                'value': 'fail'
+                "type": 's',
+                "value": 'fail'
             }
         ], function (result) {}, function (error, message) {
             console.log("failed (" + error + ") with:", message);
