@@ -22,10 +22,6 @@
 <context>
     <name>MainPage</name>
     <message>
-        <source>Tailscale status</source>
-        <translation>Tailscale 状态</translation>
-    </message>
-    <message>
         <source>Down</source>
         <translation>下</translation>
     </message>
@@ -36,6 +32,30 @@
     <message>
         <source>About</source>
         <translation>关于</translation>
+    </message>
+    <message>
+        <source>This device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Online</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Seen </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tailscale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No devices found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pull down to bring Tailscale up</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
