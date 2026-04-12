@@ -2,7 +2,7 @@ Name:       harbour-tailscale
 
 # >> macros
 %global _missing_build_ids_terminate_build 0
-%define tailscale_version 1.92.5
+%define tailscale_version 1.96.4
 # << macros
 
 %{!?qtc_qmake:%define qtc_qmake %qmake}
