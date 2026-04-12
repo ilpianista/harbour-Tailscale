@@ -1,3 +1,8 @@
+* Sun 12 2026 Andrea Scarpino <andrea@scarpino.dev> 0.0.11-1
+- Refactoring main page to show the devices details.
+- Update tailscale to 1.96.4
+- Translations update.
+
 * Thu Jan 15 2026 Andrea Scarpino <andrea@scarpino.dev> 0.0.10-1
 - Update tailscale to 1.92.5
 - Translations update.
