@@ -18,67 +18,35 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        include:
+          - arch: armv7hl
+            tailscale_arch: arm
+          - arch: aarch64
+            tailscale_arch: arm64
+          - arch: i486
+            tailscale_arch: 386
+
     steps:
     - uses: actions/checkout@v5
 
-    - name: Prepare
+    - name: prepare
       run: mkdir RPMS
 
-    - name: Build armv7hl
-      id: build_armv7hl
+    - name: Build ${{ matrix.arch }}
       run: docker run --rm --privileged -v $PWD:/workspace coderus/sailfishos-platform-sdk:$RELEASE /bin/bash -c "
             mkdir -p build ;
             cd build ;
             cp -r /workspace/* . ;
             cd rpm ;
-            curl -O https://pkgs.tailscale.com/stable/tailscale_${TAILSCALE_VERSION}_arm.tgz ;
+            curl -O https://pkgs.tailscale.com/stable/tailscale_${TAILSCALE_VERSION}_${{ matrix.tailscale_arch }}.tgz ;
             cd .. ;
-            mb2 -t SailfishOS-$RELEASE-armv7hl build --prepare ;
-            sudo mkdir -p /workspace/RPMS ;
-            sudo cp -r RPMS/*.rpm /workspace/RPMS"
-
-    - name: Build i486
-      id: build_i486
-      run: docker run --rm --privileged -v $PWD:/workspace coderus/sailfishos-platform-sdk:$RELEASE /bin/bash -c "
-            mkdir -p build ;
-            cd build ;
-            cp -r /workspace/* . ;
-            cd rpm ;
-            curl -O https://pkgs.tailscale.com/stable/tailscale_${TAILSCALE_VERSION}_386.tgz ;
-            cd .. ;
-            mb2 -t SailfishOS-$RELEASE-i486 build --prepare ;
-            sudo mkdir -p /workspace/RPMS ;
-            sudo cp -r RPMS/*.rpm /workspace/RPMS"
-
-    - name: Build aarch64
-      id: build_aarch64
-      run: docker run --rm --privileged -v $PWD:/workspace coderus/sailfishos-platform-sdk:$RELEASE /bin/bash -c "
-            mkdir -p build ;
-            cd build ;
-            cp -r /workspace/* . ;
-            cd rpm ;
-            curl -O https://pkgs.tailscale.com/stable/tailscale_${TAILSCALE_VERSION}_arm64.tgz ;
-            cd .. ;
-            mb2 -t SailfishOS-$RELEASE-aarch64 build --prepare ;
-            sudo mkdir -p /workspace/RPMS ;
+            mb2 -t SailfishOS-$RELEASE-${{ matrix.arch }} build --prepare ;
             sudo cp -r RPMS/*.rpm /workspace/RPMS"
 
     - name: Upload build result
       uses: actions/upload-artifact@v5
       with:
-        name: rpms
+        name: rpms-${{ matrix.arch }}
         path: RPMS
-
-    - name: Create release
-      if: contains(github.ref, 'release')
-      run: |
-        set -x
-        assets=()
-        for asset in RPMS/*.rpm; do
-          assets+=("-a" "$asset")
-        done
-        tag_name="${GITHUB_REF##*/}"
-        hub release create "${assets[@]}" -m "$tag_name" "$tag_name"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
