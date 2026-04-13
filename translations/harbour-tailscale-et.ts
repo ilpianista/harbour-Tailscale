@@ -35,27 +35,27 @@
     </message>
     <message>
         <source>This device</source>
-        <translation type="unfinished"></translation>
+        <translation>See seade</translation>
     </message>
     <message>
         <source>Online</source>
-        <translation type="unfinished"></translation>
+        <translation>Võrgus</translation>
     </message>
     <message>
         <source>Seen </source>
-        <translation type="unfinished"></translation>
+        <translation>Nähtud </translation>
     </message>
     <message>
         <source>Tailscale</source>
-        <translation type="unfinished"></translation>
+        <translation>Tailscale</translation>
     </message>
     <message>
         <source>No devices found</source>
-        <translation type="unfinished"></translation>
+        <translation>Seadmeid ei leidu</translation>
     </message>
     <message>
         <source>Pull down to bring Tailscale up</source>
-        <translation type="unfinished"></translation>
+        <translation>Tailscale&apos;i käivitamiseks viipa ülalt alla</translation>
     </message>
 </context>
 </TS>
