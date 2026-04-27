@@ -5,18 +5,18 @@
     <name>About</name>
     <message>
         <source>Tailscale version</source>
-        <translation type="unfinished"></translation>
+        <translation>Versione di Tailscale</translation>
     </message>
 </context>
 <context>
     <name>CoverPage</name>
     <message>
         <source>Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Attivo</translation>
     </message>
     <message>
         <source>Down</source>
-        <translation type="unfinished"></translation>
+        <translation>Spento</translation>
     </message>
 </context>
 <context>
@@ -31,19 +31,19 @@
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Informazioni</translation>
     </message>
     <message>
         <source>This device</source>
-        <translation type="unfinished"></translation>
+        <translation>Questo dispositivo</translation>
     </message>
     <message>
         <source>Online</source>
-        <translation type="unfinished"></translation>
+        <translation>In linea</translation>
     </message>
     <message>
         <source>Seen </source>
-        <translation type="unfinished"></translation>
+        <translation>Visto </translation>
     </message>
     <message>
         <source>No devices found</source>
