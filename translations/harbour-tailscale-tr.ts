@@ -35,27 +35,27 @@
     </message>
     <message>
         <source>This device</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu aygıt</translation>
     </message>
     <message>
         <source>Online</source>
-        <translation type="unfinished"></translation>
+        <translation>Çevrim içi</translation>
     </message>
     <message>
         <source>Seen </source>
-        <translation type="unfinished"></translation>
+        <translation>Görüldü </translation>
     </message>
     <message>
         <source>Tailscale</source>
-        <translation type="unfinished"></translation>
+        <translation>Tailscale</translation>
     </message>
     <message>
         <source>No devices found</source>
-        <translation type="unfinished"></translation>
+        <translation>Aygıt bulunamadı</translation>
     </message>
     <message>
         <source>Pull down to bring Tailscale up</source>
-        <translation type="unfinished"></translation>
+        <translation>Tailscale&apos;i çalıştırmak için aşağı kaydırın</translation>
     </message>
 </context>
 </TS>
