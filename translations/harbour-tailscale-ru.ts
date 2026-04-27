@@ -46,10 +46,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Tailscale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>No devices found</source>
         <translation type="unfinished"></translation>
     </message>

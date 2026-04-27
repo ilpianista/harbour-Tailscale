@@ -47,7 +47,7 @@
     </message>
     <message>
         <source>Tailscale</source>
-        <translation>Tailscale</translation>
+        <translation type="vanished">Tailscale</translation>
     </message>
     <message>
         <source>No devices found</source>

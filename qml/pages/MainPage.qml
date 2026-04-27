@@ -145,7 +145,7 @@ Page {
         }
 
         header: PageHeader {
-            title: qsTr("Tailscale")
+            title: "Tailscale"
         }
 
         ViewPlaceholder {
