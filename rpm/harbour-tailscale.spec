@@ -2,7 +2,7 @@ Name:       harbour-tailscale
 
 # >> macros
 %global _missing_build_ids_terminate_build 0
-%define tailscale_version 1.96.4
+%define tailscale_version 1.102.2
 # << macros
 
 %{!?qtc_qmake:%define qtc_qmake %qmake}
@@ -10,7 +10,7 @@ Name:       harbour-tailscale
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    tailscale
-Version:    0.0.11
+Version:    0.0.12
 Release:    1
 Group:      Qt/Qt
 License:    MIT
