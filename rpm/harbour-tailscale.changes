@@ -1,3 +1,9 @@
+* Wed Aug 26 2026 Andrea Scarpino <andrea@scarpino.dev> 0.1.3-1
+- Allow to select a device as exit node.
+- Support for subnet routers (--accept-routes).
+- Add refresh devices menu entry.
+- Add Dutch translation.
+
 * Mon Aug 17 2026 Andrea Scarpino <andrea@scarpino.dev> 0.0.12-1
 - Disable tailscale log uploads
 - Update tailscale to 1.102.2
