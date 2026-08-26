@@ -44,7 +44,7 @@
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ayarlar</translation>
     </message>
     <message>
         <source>Use as exit node</source>
@@ -67,19 +67,19 @@
     <name>SettingsPage</name>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ayarlar</translation>
     </message>
     <message>
         <source>Accept routes</source>
-        <translation type="unfinished"></translation>
+        <translation>Yolları kabul et</translation>
     </message>
     <message>
         <source>Enable automatic discovery of new subnet routes</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeni alt ağ yollarının otomatik olarak algılanmasını etkinleştir</translation>
     </message>
     <message>
         <source>Tailscale version</source>
-        <translation type="unfinished"></translation>
+        <translation>Tailscale sürümü</translation>
     </message>
 </context>
 </TS>
