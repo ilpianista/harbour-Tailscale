@@ -24,10 +24,23 @@
 
 #include "client.h"
 
+#include <QDir>
 #include <QProcess>
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
 #include <QSettings>
+#include <QStandardPaths>
+
+namespace {
+
+QString settingsFilePath()
+{
+    const QString dir = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+    QDir().mkpath(dir);
+    return dir + QStringLiteral("/settings.conf");
+}
+
+} // namespace
 
 Client::Client(QObject *parent)
     : QObject(parent)
@@ -105,19 +118,19 @@ QString Client::getVersion() const
 
 bool Client::acceptRoutes() const
 {
-    QSettings settings;
+    QSettings settings(settingsFilePath(), QSettings::IniFormat);
     return settings.value(QStringLiteral("acceptRoutes"), false).toBool();
 }
 
 void Client::setAcceptRoutes(bool enabled)
 {
-    QSettings settings;
+    QSettings settings(settingsFilePath(), QSettings::IniFormat);
     settings.setValue(QStringLiteral("acceptRoutes"), enabled);
 }
 
 void Client::applyAcceptRoutes()
 {
-    QSettings settings;
+    QSettings settings(settingsFilePath(), QSettings::IniFormat);
     const bool enabled = settings.value(QStringLiteral("acceptRoutes"), false).toBool();
 
     QProcess cmd;

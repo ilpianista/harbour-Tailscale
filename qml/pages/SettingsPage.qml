@@ -47,9 +47,9 @@ Page {
                 Component.onCompleted: completed = true
 
                 onCheckedChanged: {
-                    client.setAcceptRoutes(checked)
+                    client.setAcceptRoutes(checked);
                     if (completed) {
-                        client.applyAcceptRoutes()
+                        client.applyAcceptRoutes();
                     }
                 }
             }
