@@ -46,6 +46,22 @@
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Use as exit node</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exit node</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset exit node</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refresh devices</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>

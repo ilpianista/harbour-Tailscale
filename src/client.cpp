@@ -140,3 +140,19 @@ void Client::applyAcceptRoutes()
                                         : QStringLiteral("--accept-routes=false")));
     cmd.waitForFinished();
 }
+
+void Client::setExitNode(const QString &node)
+{
+    QProcess cmd;
+    cmd.start(QStringLiteral("/usr/bin/tailscale"),
+              QStringList() << QStringLiteral("set") << QStringLiteral("--exit-node=%1").arg(node));
+    cmd.waitForFinished();
+}
+
+void Client::unsetExitNode()
+{
+    QProcess cmd;
+    cmd.start(QStringLiteral("/usr/bin/tailscale"),
+              QStringList() << QStringLiteral("set") << QStringLiteral("--exit-node="));
+    cmd.waitForFinished();
+}

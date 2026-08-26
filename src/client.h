@@ -20,6 +20,8 @@ public:
     Q_INVOKABLE bool acceptRoutes() const;
     Q_INVOKABLE void setAcceptRoutes(bool enabled);
     Q_INVOKABLE void applyAcceptRoutes();
+    Q_INVOKABLE void setExitNode(const QString &node);
+    Q_INVOKABLE void unsetExitNode();
 
 Q_SIGNALS:
     void loginRequest(QString url);

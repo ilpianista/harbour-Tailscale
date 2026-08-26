@@ -23,6 +23,8 @@ Page {
     id: page
     allowedOrientations: Orientation.All
 
+    property string exitNodeName: ""
+
     function parseStatus(statusText) {
         var result = [];
         var lines = statusText.trim().split('\n');
@@ -42,26 +44,27 @@ Page {
             if (!/^\d+\.\d+\.\d+\.\d+$/.test(ip))
                 continue;
             var hostname = parts[1].trim();
-            var user = parts[2].trim().replace(/@$/, '');
             var os = parts[3].trim();
             var rawStatus = parts.slice(4).join(' ').trim();
-            var isOnline = (rawStatus === '-' || rawStatus === '');
+            var isOnline = rawStatus.indexOf("offline") === -1;
+            var isExitNode = rawStatus.indexOf("exit node") !== -1;
             var statusLabel = '';
 
             if (isOnline) {
                 statusLabel = isFirst ? qsTr("This device") : qsTr("Online");
             } else {
                 // "offline, last seen 3d ago"  →  "Seen 3d ago"
-                statusLabel = rawStatus.replace(/^offline,\s*/i, '').replace(/^last seen\s*/i, qsTr("Seen "));
+                var seen = rawStatus.match(/last seen ([^,]+)/);
+                statusLabel = seen ? qsTr("Seen ") + seen[1].trim() : rawStatus;
             }
 
             result.push({
                 "ip": ip,
                 "hostname": hostname,
-                "user": user,
                 "os": os,
                 "statusLabel": statusLabel,
                 "isOnline": isOnline,
+                "isExitNode": isExitNode,
                 "isSelf": isFirst
             });
 
@@ -100,6 +103,7 @@ Page {
             refreshStatus();
             up.enabled = !isUp;
             down.enabled = isUp;
+            refresh.enabled = isUp;
             if (isUp) {
                 client.applyAcceptRoutes();
             }
@@ -122,14 +126,19 @@ Page {
             }
 
             MenuItem {
+                id: refresh
+                text: qsTr("Refresh devices")
+                onClicked: refreshStatus()
+                enabled: client.isUp()
+            }
+
+            MenuItem {
                 id: down
                 text: qsTr("Down")
                 enabled: client.isUp()
 
                 onClicked: {
                     client.down();
-                    up.enabled = true;
-                    down.enabled = false;
                     appWindow.restartBrowser();
                     refreshStatus();
                 }
@@ -161,6 +170,26 @@ Page {
             id: listItem
             width: listView.width
             contentHeight: innerColumn.implicitHeight + Theme.paddingLarge * 2
+
+            menu: model.isExitNode && !model.isSelf ? exitNodeMenu : null
+
+            ContextMenu {
+                id: exitNodeMenu
+
+                MenuItem {
+                    text: model.hostname === page.exitNodeName ? qsTr("Reset exit node") : qsTr("Use as exit node")
+
+                    onClicked: {
+                        if (model.hostname === page.exitNodeName) {
+                            client.unsetExitNode();
+                            page.exitNodeName = "";
+                        } else {
+                            client.setExitNode(model.hostname);
+                            page.exitNodeName = model.hostname;
+                        }
+                    }
+                }
+            }
 
             Rectangle {
                 anchors {
@@ -196,7 +225,7 @@ Page {
                         font.bold: model.isSelf
                         color: model.isOnline ? Theme.primaryColor : Theme.secondaryColor
                         truncationMode: TruncationMode.Fade
-                        width: parent.width - osTag.width - parent.spacing
+                        width: parent.width - osTag.width - exitNodeTag.width - parent.spacing * (exitNodeTag.visible ? 2 : 1)
                     }
 
                     Rectangle {
@@ -213,6 +242,24 @@ Page {
                             text: model.os
                             font.pixelSize: Theme.fontSizeExtraSmall
                             color: model.isOnline ? Theme.secondaryHighlightColor : Theme.rgba(Theme.primaryColor, 0.45)
+                        }
+                    }
+
+                    Rectangle {
+                        id: exitNodeTag
+                        visible: model.hostname === page.exitNodeName
+                        anchors.verticalCenter: hostnameLabel.verticalCenter
+                        width: visible ? exitNodeLabel.implicitWidth + Theme.paddingSmall * 2 : 0
+                        height: visible ? exitNodeLabel.implicitHeight + Theme.paddingSmall * 0.75 : 0
+                        radius: height / 2
+                        color: Theme.highlightColor
+
+                        Label {
+                            id: exitNodeLabel
+                            anchors.centerIn: parent
+                            text: qsTr("Exit node")
+                            font.pixelSize: Theme.fontSizeExtraSmall
+                            color: Theme.highlightDimmerColor
                         }
                     }
                 }
