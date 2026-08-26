@@ -27,6 +27,7 @@
 #include <QProcess>
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
+#include <QSettings>
 
 Client::Client(QObject *parent)
     : QObject(parent)
@@ -100,4 +101,29 @@ QString Client::getVersion() const
     cmd.waitForFinished();
 
     return cmd.readAllStandardOutput();
+}
+
+bool Client::acceptRoutes() const
+{
+    QSettings settings;
+    return settings.value(QStringLiteral("acceptRoutes"), false).toBool();
+}
+
+void Client::setAcceptRoutes(bool enabled)
+{
+    QSettings settings;
+    settings.setValue(QStringLiteral("acceptRoutes"), enabled);
+}
+
+void Client::applyAcceptRoutes()
+{
+    QSettings settings;
+    const bool enabled = settings.value(QStringLiteral("acceptRoutes"), false).toBool();
+
+    QProcess cmd;
+    cmd.start(QStringLiteral("/usr/bin/tailscale"),
+              QStringList() << QStringLiteral("set")
+                            << (enabled ? QStringLiteral("--accept-routes")
+                                        : QStringLiteral("--accept-routes=false")));
+    cmd.waitForFinished();
 }

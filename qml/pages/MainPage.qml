@@ -100,6 +100,9 @@ Page {
             refreshStatus();
             up.enabled = !isUp;
             down.enabled = isUp;
+            if (isUp) {
+                client.applyAcceptRoutes();
+            }
         }
     }
 
@@ -114,8 +117,8 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                text: qsTr("About")
-                onClicked: pageStack.push(Qt.resolvedUrl("About.qml"))
+                text: qsTr("Settings")
+                onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
             }
 
             MenuItem {
@@ -243,6 +246,9 @@ Page {
             }
         ], function (result) {
             refreshStatus();
+            if (client.isUp()) {
+                client.applyAcceptRoutes();
+            }
         }, function (error, message) {
             console.log("StartUnit failed (" + error + "):", message);
         });

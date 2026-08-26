@@ -8,8 +8,8 @@ SOURCES += \
 
 OTHER_FILES += \
     qml/cover/CoverPage.qml \
-    qml/pages/About.qml \
     qml/pages/MainPage.qml \
+    qml/pages/SettingsPage.qml \
     qml/Tailscale.qml \
     harbour-tailscale.desktop \
     rpm/harbour-tailscale.changes \

@@ -2,13 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="nl">
 <context>
-    <name>About</name>
-    <message>
-        <source>Tailscale version</source>
-        <translation>Tailscale-versie</translation>
-    </message>
-</context>
-<context>
     <name>CoverPage</name>
     <message>
         <source>Up</source>
@@ -30,10 +23,6 @@
         <translation>Actief</translation>
     </message>
     <message>
-        <source>About</source>
-        <translation>Over</translation>
-    </message>
-    <message>
         <source>This device</source>
         <translation>Dit apparaat</translation>
     </message>
@@ -46,16 +35,35 @@
         <translation>Gezien </translation>
     </message>
     <message>
-        <source>Tailscale</source>
-        <translation>Tailscale</translation>
-    </message>
-    <message>
         <source>No devices found</source>
         <translation>Geen apparaten gevonden</translation>
     </message>
     <message>
         <source>Pull down to bring Tailscale up</source>
         <translation>Trek omlaag om Tailscale te activeren</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SettingsPage</name>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Accept routes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable automatic discovery of new subnet routes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tailscale version</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

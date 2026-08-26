@@ -2,13 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="et">
 <context>
-    <name>About</name>
-    <message>
-        <source>Tailscale version</source>
-        <translation>Tailscale&apos;i versioon</translation>
-    </message>
-</context>
-<context>
     <name>CoverPage</name>
     <message>
         <source>Up</source>
@@ -30,10 +23,6 @@
         <translation>Üles</translation>
     </message>
     <message>
-        <source>About</source>
-        <translation>Rakenduse teave</translation>
-    </message>
-    <message>
         <source>This device</source>
         <translation>See seade</translation>
     </message>
@@ -46,16 +35,35 @@
         <translation>Nähtud </translation>
     </message>
     <message>
-        <source>Tailscale</source>
-        <translation type="vanished">Tailscale</translation>
-    </message>
-    <message>
         <source>No devices found</source>
         <translation>Seadmeid ei leidu</translation>
     </message>
     <message>
         <source>Pull down to bring Tailscale up</source>
         <translation>Tailscale&apos;i käivitamiseks viipa ülalt alla</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SettingsPage</name>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Accept routes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable automatic discovery of new subnet routes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tailscale version</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

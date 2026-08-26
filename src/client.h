@@ -17,6 +17,9 @@ public:
     Q_INVOKABLE bool isUp() const;
     Q_INVOKABLE QString getVersion() const;
     Q_INVOKABLE void up();
+    Q_INVOKABLE bool acceptRoutes() const;
+    Q_INVOKABLE void setAcceptRoutes(bool enabled);
+    Q_INVOKABLE void applyAcceptRoutes();
 
 Q_SIGNALS:
     void loginRequest(QString url);
