@@ -44,42 +44,42 @@
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Seadistused</translation>
     </message>
     <message>
         <source>Use as exit node</source>
-        <translation type="unfinished"></translation>
+        <translation>Kasuta väljundsõlmena</translation>
     </message>
     <message>
         <source>Exit node</source>
-        <translation type="unfinished"></translation>
+        <translation>Väljundsõlm</translation>
     </message>
     <message>
         <source>Reset exit node</source>
-        <translation type="unfinished"></translation>
+        <translation>Lähtesta väljundsõlm</translation>
     </message>
     <message>
         <source>Refresh devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Uuenda seadmete loend</translation>
     </message>
 </context>
 <context>
     <name>SettingsPage</name>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Seadistused</translation>
     </message>
     <message>
         <source>Accept routes</source>
-        <translation type="unfinished"></translation>
+        <translation>Nõustu ruutingutega</translation>
     </message>
     <message>
         <source>Enable automatic discovery of new subnet routes</source>
-        <translation type="unfinished"></translation>
+        <translation>Lülita uute alamvõrgu marsruutide automaatne tuvastamine sisse</translation>
     </message>
     <message>
         <source>Tailscale version</source>
-        <translation type="unfinished"></translation>
+        <translation>Tailscale&apos;i versioon</translation>
     </message>
 </context>
 </TS>
