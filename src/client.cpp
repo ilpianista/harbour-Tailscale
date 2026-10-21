@@ -67,7 +67,15 @@ void Client::up()
     connect(m_cmd, (void (QProcess::*)(int)) &QProcess::finished, this, &Client::onUpFinished);
     connect(m_cmd, &QProcess::readyReadStandardOutput, this, &Client::onUpReadyRead);
 
-    m_cmd->start(QStringLiteral("/usr/bin/tailscale"), QStringList("up"));
+    QStringList args = QStringList("up");
+
+    QSettings settings(settingsFilePath(), QSettings::IniFormat);
+    const QString server = settings.value(QStringLiteral("loginServer")).toString();
+    if (!server.isEmpty()) {
+        args << QStringLiteral("--login-server=%1").arg(server);
+    }
+
+    m_cmd->start(QStringLiteral("/usr/bin/tailscale"), args);
 }
 
 void Client::onUpFinished(int exitCode)
@@ -81,7 +89,7 @@ void Client::onUpFinished(int exitCode)
 
 void Client::onUpReadyRead()
 {
-    static const QRegularExpression regexp("(https://login\\.tailscale\\.com/a/\\S+)");
+    static const QRegularExpression regexp("(https://\\S+)");
 
     QRegularExpressionMatch match = regexp.match(m_cmd->readAllStandardOutput());
     if (match.hasMatch()) {
@@ -139,6 +147,24 @@ void Client::applyAcceptRoutes()
                             << (enabled ? QStringLiteral("--accept-routes")
                                         : QStringLiteral("--accept-routes=false")));
     cmd.waitForFinished();
+}
+
+QString Client::loginServer() const
+{
+    QSettings settings(settingsFilePath(), QSettings::IniFormat);
+    return settings.value(QStringLiteral("loginServer")).toString();
+}
+
+void Client::setLoginServer(const QString &url)
+{
+    const QString trimmed = url.trimmed();
+
+    QSettings settings(settingsFilePath(), QSettings::IniFormat);
+    if (trimmed.isEmpty()) {
+        settings.remove(QStringLiteral("loginServer"));
+    } else {
+        settings.setValue(QStringLiteral("loginServer"), trimmed);
+    }
 }
 
 void Client::setExitNode(const QString &node)
