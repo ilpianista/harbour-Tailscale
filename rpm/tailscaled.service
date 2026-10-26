@@ -1,12 +1,11 @@
 [Unit]
 Description=Tailscale node agent
-Documentation=https://tailscale.com/kb/
+Documentation=https://tailscale.com/docs/
 Requires=connman.service
 After=connman.service
 
 [Service]
 EnvironmentFile=/etc/sysconfig/tailscaled
-ExecStartPre=/usr/bin/tailscaled --cleanup
 ExecStart=/usr/bin/tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/run/tailscale/tailscaled.sock --port=${PORT} $FLAGS
 ExecStopPost=/usr/bin/tailscaled --cleanup
 
