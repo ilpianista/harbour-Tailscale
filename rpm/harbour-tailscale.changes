@@ -1,4 +1,9 @@
-* Wed Aug 26 2026 Andrea Scarpino <andrea@scarpino.dev> 0.1.3-1
+* Mon Oct 26 2026 Andrea Scarpino <andrea@scarpino.dev> 0.0.14-1
+- Update tailscale to 1.104.2.
+- Add Norwegian translation.
+- Translations update.
+
+* Wed Aug 26 2026 Andrea Scarpino <andrea@scarpino.dev> 0.0.13-1
 - Allow to select a device as exit node.
 - Support for subnet routers (--accept-routes).
 - Add refresh devices menu entry.
