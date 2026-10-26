@@ -44,42 +44,42 @@
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Instellingen</translation>
     </message>
     <message>
         <source>Use as exit node</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruiken als exitnode</translation>
     </message>
     <message>
         <source>Exit node</source>
-        <translation type="unfinished"></translation>
+        <translation>Exitnode</translation>
     </message>
     <message>
         <source>Reset exit node</source>
-        <translation type="unfinished"></translation>
+        <translation>Standaardwaarden voor exitnode instellen</translation>
     </message>
     <message>
         <source>Refresh devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Apparaten vernieuwen</translation>
     </message>
 </context>
 <context>
     <name>SettingsPage</name>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Instellingen</translation>
     </message>
     <message>
         <source>Accept routes</source>
-        <translation type="unfinished"></translation>
+        <translation>Routes accepteren</translation>
     </message>
     <message>
         <source>Enable automatic discovery of new subnet routes</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatische ontdekking van nieuwe subnetroutes inschakelen</translation>
     </message>
     <message>
         <source>Tailscale version</source>
-        <translation type="unfinished"></translation>
+        <translation>Tailscale-versie</translation>
     </message>
 </context>
 </TS>
