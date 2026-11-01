@@ -1,0 +1,26 @@
+{
+  "BackendState": "Running",
+  "Self": {
+    "NodeID": 1, "StableID": "1", "Name": "jp", "HostName": "jp",
+    "Addresses": ["100.85.223.71/32", "fd7a:4865:4444::71/128"],
+    "KeyExpiry": "2027-06-01T00:00:00Z", "Online": true, "OS": "linux",
+    "TailscaleIPs": ["100.85.223.71", "fd7a:4865:4444::71"],
+    "DNSName": "jp.mytailnet.ts.net.", "LastSeen": "2026-10-30T06:00:00Z"
+  },
+  "Peer": {
+    "12": {
+      "NodeID": 12, "StableID": "12", "Name": "truenas-scale", "HostName": "truenas-scale",
+      "Addresses": ["100.92.130.114/32", "fd7a:4865:4444::114/128"],
+      "Online": true, "OS": "linux",
+      "TailscaleIPs": ["100.92.130.114", "fd7a:4865:4444::114"],
+      "DNSName": "truenas-scale.mytailnet.ts.net.", "LastSeen": "2026-10-30T06:00:00Z"
+    },
+    "7": {
+      "NodeID": 7, "StableID": "7", "Name": "fp6-1", "HostName": "FP6",
+      "Addresses": ["100.85.223.80/32"], "Online": false, "OS": "android",
+      "KeyExpiry": "2026-12-01T00:00:00Z",
+      "TailscaleIPs": ["100.85.223.80"],
+      "DNSName": "fp6-1.mytailnet.ts.net.", "LastSeen": "2026-10-29T06:00:00Z"
+    }
+  }
+}

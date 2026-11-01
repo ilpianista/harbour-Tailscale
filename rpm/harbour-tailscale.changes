@@ -1,3 +1,24 @@
+* Sun Nov 1 2026 Andrea Scarpino <andrea@scarpino.dev> 0.0.15-1
+- Device detail page: tap a device in the list to see its MagicDNS
+  name, IPv4, IPv6, OS, key expiry and status; tap an address to
+  copy it.
+- Ping: 10 pings with a live per-bar ms latency graph, direct vs
+  relayed (via DERP) connection type, and a Stop button.
+- Settings: "Start at boot" — enables the tailscaled service so it
+  starts at boot and keeps running after the app closes.
+* Sat Oct 31 2026 Andrea Scarpino <andrea@scarpino.dev> 0.0.14-14
+- Fix app crash when stopping a running ping or leaving the device
+  detail page while a ping is in flight (QProcess::waitForFinished()
+  re-enters the finished slot, which had already deleted m_ping;
+  cancelPing now re-checks the pointer before use).
+- Device detail: remove the back arrow from the page header (SFOS
+  edge-swipe still pops the page and cancels a running ping).
+* Sat Oct 31 2026 Andrea Scarpino <andrea@scarpino.dev> 0.0.14-13
+- Settings: "Start at boot" — enables the tailscaled.service unit
+  (systemctl enable) and keeps the daemon running after the app closes.
+- Ping: cancel on every exit path (back button, Stop, page destruction,
+  app backgrounded) with tagged + timestamped /tmp ping log.
+- Ping graph: smaller per-bar ms labels (16px) to stop overlap.
 * Mon Oct 26 2026 Andrea Scarpino <andrea@scarpino.dev> 0.0.14-1
 - Update tailscale to 1.104.2.
 - Add Norwegian translation.

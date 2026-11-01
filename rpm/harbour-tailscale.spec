@@ -10,7 +10,7 @@ Name:       harbour-tailscale
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    tailscale
-Version:    0.0.14
+Version:    0.0.15
 Release:    1
 Group:      Qt/Qt
 License:    MIT
@@ -63,9 +63,12 @@ fi
 # >> build pre
 # << build pre
 
-%qtc_qmake5
+# mb2 skips the spec's prep section, so unpack the tailscale binaries here
+[ -d %{_sourcedir}/%{tailscale_dir} ] || tar xf %{_sourcedir}/%{tailscale_dir}.tgz -C %{_sourcedir}
 
-%qtc_make %{?_smp_mflags}
+cd %{_builddir}/%{name}-%{version}
+qmake Tailscale.pro
+make
 
 # >> build post
 # << build post
@@ -74,7 +77,8 @@ fi
 rm -rf %{buildroot}
 # >> install pre
 # << install pre
-%qmake5_install
+cd %{_builddir}/%{name}-%{version}
+make INSTALL_ROOT=%{buildroot} install
 
 # >> install post
 install -d %{buildroot}%{_unitdir}

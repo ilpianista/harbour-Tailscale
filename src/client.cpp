@@ -24,12 +24,18 @@
 
 #include "client.h"
 
+#include <QClipboard>
+#include <QDateTime>
 #include <QDir>
+#include <QGuiApplication>
 #include <QProcess>
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
 #include <QSettings>
 #include <QStandardPaths>
+
+#include <cstdio>
+#include <signal.h>
 
 namespace {
 
@@ -40,14 +46,61 @@ QString settingsFilePath()
     return dir + QStringLiteral("/settings.conf");
 }
 
+// Ping lifecycle diagnostics. The phone journal is unreadable
+// (no user journal files) and the app console goes nowhere visible,
+// so the ping start/cancel/finish path is logged to a plain file the
+// user can cat over SSH. Kept minimal on purpose.
+// Every line is timestamped (HH:mm:ss.mmm) and every cancelPing carries
+// a caller tag, so the log unambiguously shows WHICH path cancelled the
+// ping (back button vs stop button vs page destruction vs app suspend)
+// and WHEN. (In 0.0.14-12 the internal and back-button cancels were
+// indistinguishable, which made the "cancel doesn't work" report
+// impossible to diagnose from the log alone.)
+void pingLog(const QString &msg)
+{
+    FILE *f = std::fopen("/tmp/harbour-tailscale-ping.log", "a");
+    if (!f)
+        return;
+    std::fprintf(f, "[%s] %s\n",
+                 QDateTime::currentDateTime().toString(QStringLiteral("HH:mm:ss.zzz")).toUtf8().constData(),
+                 msg.toUtf8().constData());
+    std::fclose(f);
+}
+
 } // namespace
 
 Client::Client(QObject *parent)
     : QObject(parent)
     , m_cmd(0)
-{}
+    , m_ping(0)
+{
+    // If the app leaves the foreground (user swiped to home / another
+    // app), a running `tailscale ping` must not keep running in the
+    // background — that is the path that leaked pings across page
+    // navigations in 0.0.14-12: the in-app back button was not the only
+    // way to leave the device page. Silica's ApplicationWindow binds
+    // `applicationActive` to Qt.application.active, so lipstick
+    // definitely drives these state changes on this Qt 5.6.
+    // Qt 5.6 has no qGuiApplication() function — only the qGuiApp macro
+    // (static_cast of QCoreApplication::instance()).
+    connect(qGuiApp, &QGuiApplication::applicationStateChanged,
+            this, &Client::onApplicationStateChanged);
+}
 
-Client::~Client() {}
+Client::~Client()
+{
+    // The app exiting must not leave a `tailscale ping` running.
+    cancelPing(QStringLiteral("destructor"));
+}
+
+void Client::onApplicationStateChanged(Qt::ApplicationState state)
+{
+    if (state != Qt::ApplicationActive) {
+        pingLog(QString("applicationStateChanged: %1")
+                   .arg(static_cast<int>(state)));
+        cancelPing(QStringLiteral("app-suspended"));
+    }
+}
 
 QString Client::getStatus() const
 {
@@ -57,6 +110,162 @@ QString Client::getStatus() const
     cmd.waitForFinished();
 
     return QString(cmd.readAllStandardOutput());
+}
+
+QString Client::getStatusJson() const
+{
+    QProcess cmd;
+    cmd.start(QStringLiteral("/usr/bin/tailscale"),
+              QStringList() << QStringLiteral("status") << QStringLiteral("--json"));
+    cmd.setProcessChannelMode(QProcess::MergedChannels);
+    cmd.waitForFinished();
+
+    return QString(cmd.readAllStandardOutput());
+}
+
+void Client::startPing(const QString &address, int count)
+{
+    cancelPing(QStringLiteral("internal"));
+    m_pingBuffer.clear();
+    pingLog(QString("startPing: %1 count=%2").arg(address).arg(count));
+
+    m_ping = new QProcess(this);
+    m_ping->setProcessChannelMode(QProcess::MergedChannels);
+    connect(m_ping, &QProcess::readyReadStandardOutput, this, &Client::onPingReadyRead);
+    connect(m_ping, (void (QProcess::*)(int)) &QProcess::finished, this, &Client::onPingFinished);
+
+    // --until-direct=false: force ALL <count> pings. By default `tailscale ping`
+    // stops as soon as a direct (non-DERP) path is found, which would give far
+    // fewer samples than requested (we saw "1 of 10" on relayed links).
+    m_ping->start(QStringLiteral("/usr/bin/tailscale"),
+                  QStringList() << QStringLiteral("ping")
+                                << QStringLiteral("--c=%1").arg(count)
+                                << QStringLiteral("--until-direct=false")
+                                << QStringLiteral("--timeout=4s")
+                                << address);
+}
+
+void Client::cancelPing(const QString &tag)
+{
+    if (m_ping) {
+        const qint64 pid = m_ping->processId();
+        const bool wasRunning = (m_ping->state() != QProcess::NotRunning);
+        // kill() = SIGKILL (process group, with direct-pid fallback in
+        // Qt's qprocess_unix). waitForFinished reaps it promptly so the
+        // QProcess (and its output pipes) go away deterministically.
+        m_ping->kill();
+        m_ping->waitForFinished(2000);
+        // Belt and braces: signal the pid directly in case the group
+        // signal did not reach it.
+        if (pid > 0)
+            ::kill((pid_t)pid, SIGKILL);
+        // NOTE: waitForFinished() runs the event loop, so QProcess::
+        // finished may have already been dispatched here and
+        // onPingFinished() already deleteLater()'d + nulled m_ping.
+        // An unguarded m_ping->deleteLater() below would dereference
+        // NULL and crash the app (the 0.0.14-13 Stop/back crash).
+        if (m_ping)
+            pingLog(QString("cancelPing[%1]: pid=%2 wasRunning=%3 stateAfter=%4")
+                       .arg(tag).arg(pid).arg(wasRunning).arg((int)m_ping->state()));
+        else
+            pingLog(QString("cancelPing[%1]: pid=%2 wasRunning=%3 (finished slot already cleaned up)")
+                       .arg(tag).arg(pid).arg(wasRunning));
+        if (m_ping) {
+            m_ping->deleteLater();
+            m_ping = 0;
+        }
+    } else {
+        pingLog(QString("cancelPing[%1]: no ping process to cancel").arg(tag));
+    }
+    m_pingBuffer.clear();
+}
+
+bool Client::isAutostart() const
+{
+    QProcess cmd;
+    cmd.start(QStringLiteral("systemctl"),
+              QStringList() << QStringLiteral("is-enabled")
+                            << QStringLiteral("tailscaled.service"));
+    cmd.waitForFinished();
+    return cmd.exitCode() == 0
+        && cmd.readAllStandardOutput().trimmed() == QStringLiteral("enabled");
+}
+
+void Client::setAutostart(bool enabled)
+{
+    QProcess cmd;
+    cmd.start(QStringLiteral("systemctl"),
+              QStringList() << (enabled ? QStringLiteral("enable")
+                                        : QStringLiteral("disable"))
+                            << QStringLiteral("tailscaled.service"));
+    cmd.waitForFinished();
+
+    if (enabled) {
+        // Take effect immediately as well: start the daemon now if it is
+        // not running yet (the app may have been closed with the daemon
+        // stopped).
+        QProcess s;
+        s.start(QStringLiteral("systemctl"),
+                QStringList() << QStringLiteral("start")
+                              << QStringLiteral("tailscaled.service"));
+        s.waitForFinished();
+    }
+}
+
+namespace {
+    // tailscale 1.104 output, both cases use "via":
+    //   direct: "pong from name (ip) via [endpoint]:41641 in 4ms"
+    //   relay:  "pong from name (ip) via DERP(fra) in 151ms"
+    // → relayed iff the line mentions a DERP node, NOT iff it contains "via"
+    bool parsePingLine(const QString &line, double &ms, bool &relayed)
+    {
+        if (!line.startsWith(QStringLiteral("pong")))
+            return false;
+        static const QRegularExpression re(QStringLiteral(" in ([0-9]+(?:\\.[0-9]+)?)\\s*ms"));
+        const QRegularExpressionMatch m = re.match(line);
+        ms = m.hasMatch() ? m.captured(1).toDouble() : 0.0;
+        relayed = line.contains(QStringLiteral("DERP"));
+        return true;
+    }
+} // namespace
+
+void Client::onPingReadyRead()
+{
+    if (!m_ping)
+        return;
+
+    m_pingBuffer += QString::fromUtf8(m_ping->readAllStandardOutput());
+    int nl;
+    while ((nl = m_pingBuffer.indexOf(QLatin1Char('\n'))) != -1) {
+        const QString line = m_pingBuffer.left(nl).trimmed();
+        m_pingBuffer = m_pingBuffer.mid(nl + 1);
+
+        double ms = 0.0;
+        bool relayed = false;
+        if (parsePingLine(line, ms, relayed))
+            Q_EMIT pingSample(ms, relayed);
+    }
+}
+
+void Client::onPingFinished(int exitCode)
+{
+    pingLog(QString("onPingFinished: exitCode=%1").arg(exitCode));
+
+    // Flush any trailing line that never received a newline
+    onPingReadyRead();
+    const QString line = m_pingBuffer.trimmed();
+    m_pingBuffer.clear();
+    double ms = 0.0;
+    bool relayed = false;
+    if (parsePingLine(line, ms, relayed))
+        Q_EMIT pingSample(ms, relayed);
+
+    if (m_ping) {
+        m_ping->deleteLater();
+        m_ping = 0;
+    }
+
+    Q_EMIT pingFinished();
 }
 
 void Client::up()
@@ -87,6 +296,12 @@ void Client::onUpReadyRead()
     if (match.hasMatch()) {
         Q_EMIT loginRequest(match.captured(1));
     }
+}
+
+void Client::copyToClipboard(const QString &text)
+{
+    if (QGuiApplication::clipboard())
+        QGuiApplication::clipboard()->setText(text);
 }
 
 void Client::down()

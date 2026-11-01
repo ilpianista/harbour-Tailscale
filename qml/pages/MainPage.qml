@@ -171,6 +171,12 @@ Page {
             width: listView.width
             contentHeight: innerColumn.implicitHeight + Theme.paddingLarge * 2
 
+            onClicked: pageStack.push(Qt.resolvedUrl("DevicePage.qml"), {
+                "hostname": model.hostname,
+                "nodeIp": model.ip,
+                "isSelf": model.isSelf
+            })
+
             menu: model.isExitNode && !model.isSelf ? exitNodeMenu : null
 
             ContextMenu {
@@ -302,6 +308,12 @@ Page {
     }
 
     Component.onDestruction: {
+        // "Start at boot" (settings) means the daemon is meant to live
+        // independently of the app — do NOT stop it when the app closes.
+        // Otherwise keep the 0.0.8 behavior: stop the daemon on close.
+        if (client.isAutostart())
+            return;
+
         systemd.typedCall('StopUnit', [
             {
                 "type": 's',

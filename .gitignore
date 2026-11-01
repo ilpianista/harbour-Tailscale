@@ -3,6 +3,8 @@
 *.pro.user.*
 *.autosave
 RPMS
+dist/
+*.user
 
 rpm/*.tgz
 rpm/tailscale_*/
