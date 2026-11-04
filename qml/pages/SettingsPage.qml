@@ -54,6 +54,16 @@ Page {
                 }
             }
 
+            TextSwitch {
+                id: autostartSwitch
+
+                text: qsTr("Start at boot")
+                description: qsTr("Start tailscaled automatically at boot and keep it running when the app is closed")
+                checked: client.isAutostart()
+
+                onCheckedChanged: client.setAutostart(checked)
+            }
+
             SectionHeader {
                 text: qsTr("Tailscale version")
             }

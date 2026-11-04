@@ -9,6 +9,7 @@ SOURCES += \
 OTHER_FILES += \
     qml/cover/CoverPage.qml \
     qml/pages/MainPage.qml \
+    qml/pages/DevicePage.qml \
     qml/pages/SettingsPage.qml \
     qml/Tailscale.qml \
     harbour-tailscale.desktop \
