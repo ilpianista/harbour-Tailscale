@@ -1,3 +1,6 @@
+* Wed Nov 04 2026 Andrea Scarpino <andrea@scarpino.dev> 0.0.15-1
+- Update tailscale to 1.104.5.
+
 * Mon Oct 26 2026 Andrea Scarpino <andrea@scarpino.dev> 0.0.14-1
 - Update tailscale to 1.104.2.
 - Add Norwegian translation.
