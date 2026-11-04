@@ -8,7 +8,9 @@ This project **IS NOT** endorsed by Tailscale Inc.
 
 ## Install
 
-Install via [OpenRepos](https://openrepos.net/content/ilpianista/tailscale).
+Install via Harpoon:
+
+[![Add to Harpoon](add-to-harpoon.png)](https://github.com/JuhaniLehtimaeki/Harpoon)
 
 ## Translations
 
