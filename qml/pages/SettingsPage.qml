@@ -35,6 +35,25 @@ Page {
                 title: qsTr("Settings")
             }
 
+            SectionHeader {
+                text: qsTr("Control server")
+            }
+
+            TextField {
+                id: loginServerField
+                width: parent.width
+                text: client.loginServer()
+                placeholderText: qsTr("Tailscale default")
+                label: qsTr("Control server URL")
+                description: qsTr("Custom control server (e.g. Headscale). Leave empty to use the Tailscale default. Takes effect the next time you bring Tailscale up.")
+                inputMethodHints: Qt.ImhUrlCharactersOnly
+                onFocusChanged: {
+                    if (!focus) {
+                        client.setLoginServer(text.trim());
+                    }
+                }
+            }
+
             TextSwitch {
                 id: acceptRoutesSwitch
                 property bool completed: false
