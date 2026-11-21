@@ -74,6 +74,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Control server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Control server URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tailscale default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom control server (e.g. Headscale). Leave empty to use the Tailscale default. Takes effect the next time you bring Tailscale up.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Enable automatic discovery of new subnet routes</source>
         <translation type="unfinished"></translation>
     </message>
